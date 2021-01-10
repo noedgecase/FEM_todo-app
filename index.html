@@ -7,26 +7,27 @@
   <title>Frontend Mentor | Todo app</title>
   <link rel="stylesheet" href="./style/style.css">
 </head>
-<body id="night">
+<body class="night">
   <main>
-    <section id="add-task-section">
+    <header id="add-task-section">
       
       <div id="top-section">
         <h1>TODO</h1>
         <img src="./images/icon-sun.svg" id="sun-icon" alt="Sun Icon" title="Turn the lights on">
       </div>
 
-      <form class="task-tab">
-        <label id="submit-button">
-          <input type="submit" value="">
+      <form class="task-tab task-dark">
+        <label id="submit-label">
+          <input type="submit" id="submit-button" onclick="event.preventDefault()" value="">
           <img src="./images/icon-check.svg" id="check-label" alt="">
         </label>
         <input type="text">
       </form>
-    </section>
+
+    </header>
 
     <section id="list">
-      <div class="task-tab"></div>
+      <div class="task-tab task-dark"></div>
     </section>
 
   </main>
