@@ -3,7 +3,7 @@
 // Selections 
 const body = document.getElementsByTagName('body')[0];
 const dayNight = document.getElementById('sun-icon');
-const taskTabs = document.querySelectorAll('.task-tab');
+const taskTabs = document.getElementsByClassName('task-tab');
 const taskList = document.getElementById('list');
 const task = document.createElement('div');
 const submitButton = document.getElementById('submit-button');
@@ -14,33 +14,37 @@ let theme = false;
 // console.log(theme);
 
 // FUNCTIONS
-// Light mode Night Mode 
+// Day Mode Night Mode 
 const changeTheme = function(){
       theme = !theme;
-      // console.log(theme);
       body.classList.toggle('night');
       body.classList.toggle('day');
-      // taskTabs.classListAll.toggle('task-light');
-      // taskTabs.classListAll.toggle('task-dark');
+      // taskTabs.classList.add('task-light');
+      // taskTabs.classList.add('task-dark');
+      console.log(theme);
 }
 
 // Add new task to the list
 const createNewTask = function(){
-      taskList.append(task);
-      if(theme=0){
-            task.classList.add('task-tab')
-            task.classList.add('task-dark')
-            console.log('its working');
+      // console.log(theme);
+      if (taskList.children.length<1){
+            taskList.prepend(task);
       }else{
-            task.classList.add('task-tab')
-            task.classList.toggle('task-light')
-            console.log('its working');
+            taskList.prepend(task.cloneNode(true));
       }
-      task.innerHTML='test';
-      
-      
+            if(theme===false){
+                  task.classList.add('task-tab');
+                  task.classList.add('task-dark');
+                  task.innerHTML='Test test 123';
+                  console.log(`black`);
+            }else{
+                  task.classList.add('task-tab');
+                  task.classList.add('task-light');
+                  task.innerHTML='This should be white';
+                  console.log(`white`);
+            }
 }
 
-// Events 
+// Events Trigger
 dayNight.addEventListener('click', changeTheme);
 submitButton.addEventListener('click', createNewTask);
