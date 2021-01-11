@@ -38,6 +38,7 @@ const createNewTask = function(){
       }
       task.innerHTML='test';
       
+      
 }
 
 // Events 
