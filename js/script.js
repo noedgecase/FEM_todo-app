@@ -34,7 +34,9 @@ const changeTheme = function(){
       theme = !theme;
       body.classList.toggle('night');
       body.classList.toggle('day');
-      console.log("TASKURI: ", taskTabs);
+      inputValue.style.background.$veryLightGray;
+      inputValue.style.color.black;
+      // console.log("TASKURI: ", taskTabs);
       for(let i=0; i<taskTabs.length; i++){
             taskTabs[i].classList.toggle('task-light');
             taskTabs[i].classList.toggle('task-dark');
@@ -50,18 +52,22 @@ const changeTheme = function(){
 };
 
 // Create a task
-
 const addTask = function () {
       const createTaskDiv = document.createElement('div');
       const createTaskP = document.createElement('p');
       createTaskDiv.appendChild(createTaskP);
       const taskContent = document.createTextNode(inputValue.value);
       createTaskDiv.lastChild.appendChild(taskContent);
-      createTaskDiv.classList.add('task-tab', 'task-dark');
+      createTaskDiv.classList.add('task-tab');
+      if(theme===false){
+            createTaskDiv.classList.add('task-dark');
+      }else{
+            createTaskDiv.classList.add('task-light');
+      }
       //ADDING LOGIC
       const taskId = uuidv4()
-      allTasks.push(taskId);
-      toComplete.push(taskId);
+      // allTasks.push(taskId);
+      toComplete.unshift(taskId);
       createTaskDiv.id = taskId;
       taskList.prepend(createTaskDiv);
       inputValue.value="";
