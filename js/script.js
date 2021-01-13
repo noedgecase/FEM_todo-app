@@ -5,15 +5,23 @@ const body = document.getElementsByTagName('body')[0];
 const dayNight = document.getElementById('sun-icon');
 const taskTabs = document.getElementsByClassName('task-tab');
 const taskList = document.getElementById('list');
-const task = document.createElement('div');
+const createTaskDiv = document.createElement('div');
 const submitButton = document.getElementById('submit-button');
+const inputValue = document.getElementById('input-value');
 
 
 // Theme State
 let theme = false;
-// console.log(theme);
 
-// FUNCTIONS
+// TO COMPLETE
+let toComplete = [];
+// COMPLETED
+let completed =[];
+// ALL
+let allTasks = [toComplete, completed];
+// FUNCTIONS ////////////////////////////
+
+
 // Day Mode Night Mode 
 const changeTheme = function(){
       theme = !theme;
@@ -21,30 +29,44 @@ const changeTheme = function(){
       body.classList.toggle('day');
       // taskTabs.classList.add('task-light');
       // taskTabs.classList.add('task-dark');
-      console.log(theme);
-}
-
-// Add new task to the list
-const createNewTask = function(){
-      // console.log(theme);
-      if (taskList.children.length<1){
-            taskList.prepend(task);
+      if(theme===false){
+            console.log(`Lights Off`);
       }else{
-            taskList.prepend(task.cloneNode(true));
+            console.log(`Lights On`);
       }
-            if(theme===false){
-                  task.classList.add('task-tab');
-                  task.classList.add('task-dark');
-                  task.innerHTML='Test test 123';
-                  console.log(`black`);
-            }else{
-                  task.classList.add('task-tab');
-                  task.classList.add('task-light');
-                  task.innerHTML='This should be white';
-                  console.log(`white`);
-            }
 }
 
-// Events Trigger
+// Add task to 'to complete' array + create task div
+
+const renderTask = function(){
+      let i;
+      for(i=0; i<=allTasks.length; i++){
+            taskList.append.createTaskDiv;
+      }
+}
+
+const getInput = function () {
+      if(inputValue.value.length==0){
+            alert(`You don't want an empty task...`);
+      }else{
+            toComplete.push(inputValue.value);
+            taskList.append(createTaskDiv);
+            // renderTask();
+            inputValue.value="";
+            console.log(toComplete);
+      }
+};
+
+
+  
+
+
+
+// EVENTS ////////////////////////////
+
+//Change Theme
 dayNight.addEventListener('click', changeTheme);
-submitButton.addEventListener('click', createNewTask);
+//Create Task
+submitButton.addEventListener('click', ()=>{
+      getInput();
+});

@@ -71,12 +71,12 @@ main {
 }
 
 .task-light {
-  background: #e4e5f1;
+  background: #fafafa;
   color: black;
 }
 
 .task-dark {
-  background: #25273c;
+  background: #393a4c;
   color: white;
 }
 
@@ -105,7 +105,7 @@ input[type=text] {
   outline: none;
   font-size: 20px;
   color: white;
-  background: #25273c;
+  background: #393a4c;
   flex: 2;
   width: 100%;
   padding: 12px 10px;
