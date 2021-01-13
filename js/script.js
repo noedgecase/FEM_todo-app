@@ -6,8 +6,10 @@ const dayNight = document.getElementById('sun-icon');
 const taskTabs = document.getElementsByClassName('task-tab');
 const taskList = document.getElementById('list');
 const createTaskDiv = document.createElement('div');
+const createTaskP = document.createElement('p');
 const submitButton = document.getElementById('submit-button');
 const inputValue = document.getElementById('input-value');
+const addInputValue = document.createTextNode(inputValue.value);
 
 
 // Theme State
@@ -18,7 +20,7 @@ let toComplete = [];
 // COMPLETED
 let completed =[];
 // ALL
-let allTasks = [toComplete, completed];
+let allTasks;
 // FUNCTIONS ////////////////////////////
 
 
@@ -40,7 +42,7 @@ const changeTheme = function(){
 
 const renderTask = function(){
       let i;
-      for(i=0; i<=allTasks.length; i++){
+      for(i=0; i<=allTasks.length-1; i++){
             taskList.append.createTaskDiv;
       }
 }
@@ -50,8 +52,10 @@ const getInput = function () {
             alert(`You don't want an empty task...`);
       }else{
             toComplete.push(inputValue.value);
-            taskList.append(createTaskDiv);
-            // renderTask();
+            taskList.appendChild(createTaskDiv);
+            taskList.lastChild.appendChild(createTaskP);
+            taskList.lastChild.lastChild.innerHTML=inputValue.value;
+            taskList.lastChild.classList.add('task-tab', 'task-dark');
             inputValue.value="";
             console.log(toComplete);
       }
