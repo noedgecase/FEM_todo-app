@@ -8,63 +8,56 @@ const inputValue = document.getElementById('input-value');
 const taskTabs = document.getElementsByClassName('task-tab');
 const taskList = document.getElementById('list');
 
-
 // Theme State
 let theme = false;
 
 // TO COMPLETE
 let toComplete = [];
 // COMPLETED
-let completed =[];
+let completed = [];
 // ALL
 let allTasks;
+
 // FUNCTIONS ////////////////////////////
 
+// Generate UUID
+function uuidv4() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
 
 // Day Mode Night Mode 
 const changeTheme = function(){
       theme = !theme;
       body.classList.toggle('night');
       body.classList.toggle('day');
-      // taskTabs.classList.add('task-light');
-      // taskTabs.classList.add('task-dark');
+      taskTabs.classList.toggle('task-light');
+      taskTabs.classList.toggle('task-dark');
       if(theme===false){
+            dayNight.src="../images/icon-sun.svg";
             console.log(`Lights Off`);
       }else{
+            dayNight.src="../images/icon-moon.svg";
             console.log(`Lights On`);
-      }
-}
-
-// Add task to 'to complete' array + create task div
-
-const renderTask = function(){
-      let i;
-      for(i=0; i<=allTasks.length-1; i++){
-            taskList.append.createTaskDiv;
-      }
-}
-
-const getInput = function () {
-      if(inputValue.value.length==0){
-            alert(`You don't want an empty task...`);
-      }else{
-            toComplete.unshift(inputValue.value);
-            const createTaskDiv = document.createElement('div');
-            const createTaskP = document.createElement('p');
-            createTaskDiv.appendChild(createTaskP);
-            const taskContent = document.createTextNode(inputValue.value);
-            createTaskDiv.lastChild.appendChild(taskContent);
-            createTaskDiv.classList.add('task-tab', 'task-dark');
-            taskList.prepend(createTaskDiv);
-            inputValue.value="";
-            console.log(toComplete);
       }
 };
 
+// Create a task
 
-  
-
-
+const addTask = function () {
+      toComplete.unshift(inputValue.value);
+      const createTaskDiv = document.createElement('div');
+      const createTaskP = document.createElement('p');
+      createTaskDiv.appendChild(createTaskP);
+      const taskContent = document.createTextNode(inputValue.value);
+      createTaskDiv.lastChild.appendChild(taskContent);
+      createTaskDiv.classList.add('task-tab', 'task-dark');
+      taskList.prepend(createTaskDiv);
+      inputValue.value="";
+      console.log(toComplete);
+};
 
 // EVENTS ////////////////////////////
 
@@ -72,5 +65,9 @@ const getInput = function () {
 dayNight.addEventListener('click', changeTheme);
 //Create Task
 submitButton.addEventListener('click', ()=>{
-      getInput();
+      if(inputValue.value==""){
+            alert(`You don't want an empty task...`);
+      }else{
+            addTask()
+      }
 });
