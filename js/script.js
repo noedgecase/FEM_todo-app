@@ -6,6 +6,7 @@ const dayNight = document.getElementById('sun-icon');
 const submitButton = document.getElementById('submit-button');
 const inputValue = document.getElementById('input-value');
 const taskTabs = document.getElementsByClassName('task-tab');
+console.log(taskTabs);
 const taskList = document.getElementById('list');
 
 // Theme State
@@ -16,7 +17,7 @@ let toComplete = [];
 // COMPLETED
 let completed = [];
 // ALL
-let allTasks;
+let allTasks = [];
 
 // FUNCTIONS ////////////////////////////
 
@@ -33,8 +34,12 @@ const changeTheme = function(){
       theme = !theme;
       body.classList.toggle('night');
       body.classList.toggle('day');
-      taskTabs.classList.toggle('task-light');
-      taskTabs.classList.toggle('task-dark');
+      console.log("TASKURI: ", taskTabs);
+      for(let i=0; i<taskTabs.length; i++){
+            taskTabs[i].classList.toggle('task-light');
+            taskTabs[i].classList.toggle('task-dark');
+      }
+      
       if(theme===false){
             dayNight.src="../images/icon-sun.svg";
             console.log(`Lights Off`);
@@ -47,16 +52,19 @@ const changeTheme = function(){
 // Create a task
 
 const addTask = function () {
-      toComplete.unshift(inputValue.value);
       const createTaskDiv = document.createElement('div');
       const createTaskP = document.createElement('p');
       createTaskDiv.appendChild(createTaskP);
       const taskContent = document.createTextNode(inputValue.value);
       createTaskDiv.lastChild.appendChild(taskContent);
       createTaskDiv.classList.add('task-tab', 'task-dark');
+      //ADDING LOGIC
+      const taskId = uuidv4()
+      allTasks.push(taskId);
+      toComplete.push(taskId);
+      createTaskDiv.id = taskId;
       taskList.prepend(createTaskDiv);
       inputValue.value="";
-      console.log(toComplete);
 };
 
 // EVENTS ////////////////////////////
