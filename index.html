@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <title>Frontend Mentor | Todo app</title>
   <link rel="stylesheet" href="./style/style.css">
@@ -10,22 +10,28 @@
 <body class="night">
   <main>
     <header id="add-task-section">
-      
       <div id="top-section">
         <h1>TODO</h1>
         <img src="./images/icon-sun.svg" id="sun-icon" alt="Sun Icon" title="Turn the lights on">
       </div>
-
+  <!-- TASK INPUT -->
       <form class="task-tab task-dark">
-        <label id="submit-label">
-          <input type="submit" id="submit-button" onclick="event.preventDefault()" value="">
-          <img src="./images/icon-check.svg" id="check-label" alt="">
+        <label id="submit-button-label">
+          <div class="on-hover-submit submit-dark">
+            <div class="plus-sign-container">
+              <div class="plus-sign-1 submit-light"></div>
+              <div class="plus-sign-2 submit-light"></div>
+            </div>
+          </div>
+          <input type="submit" id="real-submit-button" onclick="event.preventDefault()" value="">
+          <!-- <img src="./images/icon-check.svg" id="check-label" alt=""> -->
         </label>
         <input type="text" id="input-value" maxlength="30" placeholder="Create a new todo...">
       </form>
-
+  <!-- TASK INPUT  -->
+      
     </header>
-
+    
     <section id="list">
 
     </section>

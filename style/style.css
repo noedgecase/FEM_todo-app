@@ -18,7 +18,7 @@ body {
 }
 
 .day {
-  background: #fafafa;
+  background: #e0dada;
   background-image: url("../images/bg-desktop-light.jpg");
   background-repeat: no-repeat;
   background-position: top;
@@ -71,7 +71,7 @@ main {
 }
 
 .task-light {
-  background: #fafafa;
+  background: #e0dada;
   color: black;
 }
 
@@ -80,25 +80,79 @@ main {
   color: white;
 }
 
+.on-hover-submit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+
+.submit-dark {
+  background: #393a4c;
+}
+
+.submit-light {
+  background: #e0dada;
+}
+
+.plus-sign-container {
+  width: 25px;
+  height: 25px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  opacity: 0;
+}
+.plus-sign-container:hover {
+  opacity: 0.7;
+}
+
+.plus-sign-1 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 1px;
+  width: 11px;
+  transform: translate(-50%, -50%);
+}
+
+.plus-sign-2 {
+  position: absolute;
+  height: 11px;
+  width: 1px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#submit-button-label {
+  position: relative;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  margin: 1rem;
+}
+
 input[type=submit] {
   z-index: 0;
-  margin: 1rem;
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #777a92;
   cursor: pointer;
   outline: none;
-  background: linear-gradient(-90deg, #57ddff 0%, #c058f3 100%);
+  background: transparent;
 }
-input[type=submit]:before {
-  content: url(../images/icon-check.svg);
-  scale: 1.2;
-  position: absolute;
-  top: 54%;
-  left: 31px;
-  transform: translate(-50%, -50%);
-  align-items: center;
+input[type=submit]:hover {
+  border: none;
+  background: linear-gradient(-90deg, #57ddff 0%, #c058f3 100%);
 }
 
 input[type=text] {
@@ -114,6 +168,56 @@ input[type=text] {
   border: none;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+.check-button-label {
+  position: absolute;
+  left: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  margin: 1rem;
+}
+
+.check-dark {
+  background: #393a4c;
+}
+
+.check-light {
+  background: #e0dada;
+}
+
+.on-hover-check {
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+
+.check-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #777a92;
+  cursor: pointer;
+  outline: none;
+  background: transparent;
+}
+.check-button:hover {
+  border: none;
+  background: linear-gradient(-90deg, #57ddff 0%, #c058f3 100%);
 }
 
 .checked {
@@ -134,11 +238,7 @@ input[type=text] {
   align-items: center;
 }
 
-#submit-label {
-  position: relative;
-}
-
-#check-label {
+.check-label {
   cursor: pointer;
   position: absolute;
   width: 15px;

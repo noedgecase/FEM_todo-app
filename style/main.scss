@@ -11,6 +11,7 @@
 body{
       font-size:18px;
       height:100%;
+      // user-select:none;
 }
 
 .night{
@@ -85,25 +86,89 @@ main{
       color:white;
 }
 
+// 1.SUBMIT SECTION 
+.on-hover-submit{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      width:26px;
+      height:26px;      
+      border-radius:50%;
+}
+
+.submit-dark{
+      background:$veryDarkGrayishBlue;
+}
+
+.submit-light{
+      background:$veryLightGray;
+}
+
+.plus-sign-container{
+      width:25px;
+      height:25px;
+      top:50%;
+      left:50%;
+      transform: translate(-50%, -50%);
+      position:absolute;
+      opacity:0;
+      &:hover{
+            opacity:.7;
+      }
+}
+
+.plus-sign-1{
+      position:absolute;
+      left:50%;
+      top:50%;
+      height:1px;
+      width:11px;
+      transform:translate(-50%, -50%);
+}
+
+.plus-sign-2{
+      position:absolute;
+      height:11px;
+      width:1px;
+      left:50%;
+      top:50%;
+      transform:translate(-50%, -50%);
+}
+
+#submit-button-label{
+      position:relative;
+      cursor:pointer;
+      border-radius:50%;
+      width:28px;
+      height:28px;
+      margin:1rem;
+}
+
 input[type=submit]{
       z-index:0;
-      margin:1rem;
       width:28px;
       height:28px;
       border-radius:50%;
-      border:none;
+      border-width:1px;
+      border-style: solid;
+      border-color:$darkGrayBlue;
       cursor:pointer;
       outline:none;
-      background:$background;
-      &:before{
-            content:url(../images/icon-check.svg);
-            scale:1.2;
-            position:absolute;
-            top:54%;
-            left:31px;
-            transform:translate(-50%, -50%);
-            align-items:center;
+      background:transparent;
+      &:hover{
+            border: none;
+            background: $background;
       }
+      // &:before{
+      //       content:url(../images/icon-check.svg);
+      //       scale:1.2;
+      //       position:absolute;
+      //       top:54%;
+      //       left:31px;
+      //       transform:translate(-50%, -50%);
+      //       align-items:center;
+      // }
 
 }
 
@@ -122,6 +187,58 @@ input[type=text]{
       box-sizing: border-box;
 }
 
+// 2.ALL TASKS 
+.check-button-label{
+      position:absolute;
+      left:0;
+      cursor:pointer;
+      border-radius:50%;
+      width:28px;
+      height:28px;
+      margin:1rem;
+}
+
+
+.check-dark{
+      background:$veryDarkGrayishBlue;
+}
+
+.check-light{
+      background:$veryLightGray;
+}
+
+.on-hover-check{
+      z-index:1;
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      width:26px;
+      height:26px;
+      border-radius:50%;
+}
+
+.check-button{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      z-index:1;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      border-width:1px;
+      border-style: solid;
+      border-color:$darkGrayBlue;
+      cursor:pointer;
+      outline:none;
+      background:transparent;
+      &:hover{
+            border: none;
+            background: $background;
+      }
+}
+
 .checked{
       z-index:0;
       margin:1rem;
@@ -137,15 +254,10 @@ input[type=text]{
             left:31px;
             transform:translate(-50%, -50%);
             align-items:center;
-
       }
 }
 
-#submit-label{
-      position:relative;
-}
-
-#check-label{
+.check-label{
       cursor:pointer;
       position:absolute;
       width:15px;
