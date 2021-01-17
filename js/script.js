@@ -87,11 +87,6 @@ const changeTheme = function(){
             taskTabs[i].classList.toggle('task-light');
             taskTabs[i].classList.toggle('task-dark');
       }
-
-      for(let i=0; i<createHoverCap.length; i++){
-            createHoverCap[i].classList.toggle('check-dark');
-            createHoverCap[i].classList.toggle('check-light');
-      }
       
       if(theme===false){
             dayNight.src="../images/icon-sun.svg";
