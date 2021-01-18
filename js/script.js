@@ -10,7 +10,7 @@ const taskList = document.getElementById('list');
 const buttonLabel = document.querySelector('.on-hover-submit');
 const plusSign1 = document.querySelector('.plus-sign-1');
 const plusSign2 = document.querySelector('.plus-sign-2');
-const createHoverCap = document.createElement('div');
+const hoverCaps = document.getElementsByClassName('on-hover-submit');
 
 // Theme State
 let theme = false;
@@ -57,15 +57,15 @@ const addTask = function () {
       createCheckBtn.classList.add('check-button');
       createHoverCap;
       createLabel.appendChild(createHoverCap);
-      createHoverCap.classList.add('on-hover-check');
+      createHoverCap.classList.add('on-hover-submit');
       if(theme===false){
             createTaskDiv.classList.add('task-dark');
-            createCheckDiv.classList.add('check-dark');
-            createHoverCap.classList.add('check-dark');
+            createCheckDiv.classList.add('submit-dark');
+            createHoverCap.classList.add('submit-dark');
       }else{
             createTaskDiv.classList.add('task-light');
-            createCheckDiv.classList.add('check-light');
-            createHoverCap.classList.add('check-light');
+            createCheckDiv.classList.add('submit-light');
+            createHoverCap.classList.add('submit-light');
       }
       //ADDING LOGIC
       const taskId = uuidv4()
@@ -83,11 +83,13 @@ const changeTheme = function(){
       body.classList.toggle('night');
       body.classList.toggle('day');
 
-      for(let i=0; i<taskTabs.length; i++){
+      for(let i=0; i<=taskTabs.length; i++){
             taskTabs[i].classList.toggle('task-light');
             taskTabs[i].classList.toggle('task-dark');
+            hoverCaps[i].classList.toggle('submit-dark');
+            hoverCaps[i].classList.toggle('submit-light');
       }
-      
+
       if(theme===false){
             dayNight.src="../images/icon-sun.svg";
             inputValue.style.backgroundColor = 'hsl(237, 14%, 26%)';
