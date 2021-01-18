@@ -35,7 +35,6 @@ function uuidv4() {
 
 // Create a task
 const addTask = function () {
-      // console.log(taskTabs);
       const createLabel = document.createElement('label');
       const createCheckDiv = document.createElement('div');
       const createCheckBtn = document.createElement('button');
@@ -70,11 +69,12 @@ const addTask = function () {
       }
       //ADDING LOGIC
       const taskId = uuidv4()
-      // allTasks.push(taskId);
+      allTasks.push(taskId);
       toComplete.unshift(taskId);
       createTaskDiv.id = taskId;
       taskList.prepend(createTaskDiv);
       inputValue.value="";
+      console.log(toComplete.length, allTasks.length);
 };
 
 // Day Mode - Night Mode 
@@ -83,12 +83,12 @@ const changeTheme = function(){
       
       body.classList.toggle('night');
       body.classList.toggle('day');
+      // o trebuit sa stochez efectul de la butonul de input a formului, nu l-am putut selecta cu 'hoverCaps' ca si pe cele de la taskurile adaugate, nu inteleg de ce, au aceeasi clasa. Am adaugat un ID (inputHoverCap) la butonul de la form si schimba individual mai jos ca workaround.
+      inputHoverCap.classList.toggle('submit-light');
+      inputHoverCap.classList.toggle('submit-dark');
 
       // console.log('TASKURI:', taskTabs);
       for(let i=0; i<taskTabs.length; i++){
-            // o trebuit sa stochez efectul de la butonul de input a formului, nu l-am putut selecta cu 'hoverCaps' ca si pe cele de la taskurile adaugate, nu inteleg de ce, au aceeasi clasa. Am adaugat un ID (inputHoverCap) la butonul de la form si l-am modificat individual mai jos ca workaround.
-            inputHoverCap.classList.toggle('submit-light');
-            inputHoverCap.classList.toggle('submit-dark');
             taskTabs[i].classList.toggle('task-light');
             taskTabs[i].classList.toggle('task-dark');
             hoverCaps[i].classList.toggle('submit-dark');
