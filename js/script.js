@@ -1,7 +1,10 @@
 'use strict'
 
-// Selections 
-const body = document.getElementsByTagName('body')[0];
+// Theme State
+let theme = false;
+
+// STORING
+const body = document.querySelector('body');
 const dayNight = document.getElementById('sun-icon');
 const submitButton = document.getElementById('real-submit-button');
 const inputValue = document.getElementById('input-value');
@@ -12,18 +15,13 @@ const plusSign1 = document.querySelector('.plus-sign-1');
 const plusSign2 = document.querySelector('.plus-sign-2');
 const hoverCaps = document.getElementsByClassName('on-hover-submit');
 const inputHoverCap = document.getElementById('input-hover-cap');
+const crosses = document.getElementsByClassName('cross-svg');
 
-// Theme State
-let theme = false;
-
-// TO COMPLETE
 let toComplete = [];
-// COMPLETED
 let completed = [];
-// ALL
 let allTasks = [];
 
-// FUNCTIONS ////////////////////////////
+// FUNCTIONS ///////////////////////
 
 // Generate UUID
 function uuidv4() {
@@ -34,17 +32,19 @@ function uuidv4() {
 }
 
 // Create a task
-const addTask = function () {
+const createTask = function () {
+      const createTaskDiv = document.createElement('div');
       const createLabel = document.createElement('label');
       const createCheckDiv = document.createElement('div');
       const createCheckBtn = document.createElement('button');
-      const createTaskDiv = document.createElement('div');
       const createTaskP = document.createElement('p');
       const taskContent = document.createTextNode(inputValue.value);
       const createHoverCap = document.createElement('div');
+      const addImg = document.createElement('img');
       
       createTaskDiv;
       createTaskDiv.classList.add('task-tab');
+      createTaskDiv.classList.add('cursor-hover');
       createTaskP;
       createTaskDiv.appendChild(createTaskP);
       taskContent;
@@ -58,24 +58,67 @@ const addTask = function () {
       createHoverCap;
       createLabel.appendChild(createHoverCap);
       createHoverCap.classList.add('on-hover-submit');
+      createTaskDiv.appendChild(addImg);
+      addImg.src='../images/icon-cross.svg';
+      addImg.classList.add('cross-svg');
+      
+      // Theme styling /////////
       if(theme===false){
             createTaskDiv.classList.add('task-dark');
             createCheckDiv.classList.add('submit-dark');
             createHoverCap.classList.add('submit-dark');
+            createTaskDiv.classList.add('bottom-border-dark');
       }else{
             createTaskDiv.classList.add('task-light');
             createCheckDiv.classList.add('submit-light');
             createHoverCap.classList.add('submit-light');
+            createTaskDiv.classList.add('bottom-border-light');
       }
-      //ADDING LOGIC
-      const taskId = uuidv4()
-      allTasks.push(taskId);
-      toComplete.unshift(taskId);
+      
+      // Logic /////////
+      const taskId = uuidv4();
       createTaskDiv.id = taskId;
+      allTasks.unshift(taskId);
+      toComplete.unshift(taskId);
+      console.log(toComplete.length);
       taskList.prepend(createTaskDiv);
+      console.log(toComplete);
       inputValue.value="";
-      console.log(toComplete.length, allTasks.length);
+      restyleCardList();
+      
+      addImg.addEventListener('click',() => {
+            taskList.removeChild(createTaskDiv);
+            toComplete.splice(toComplete.indexOf('taskId'));
+            console.log(`deleted: `, taskId, `toComplete now has ${toComplete.length} items`, toComplete);
+      });
+      // console.log(toComplete.length, allTasks.length);
 };
+
+const restyleCardList = function() {
+      const cards = document.getElementsByClassName('task-tab');
+      // console.log("CARDURI :", cards);
+      //TODO: Edit first  --- check if exists
+      if(cards[1]) {
+            //border top
+            cards[1].classList.add('first-task');
+      }
+      //TODO: Edit second --- check if exists
+      if(cards[2]){
+            //border none
+            cards[2].classList.add('border-radius-none')
+      }
+      if(cards[cards.length - 1]) {
+            // obrder bottom
+            cards[cards.length - 1].classList.add('last-task')
+      }
+}
+
+// delete a task
+// const deleteTask = function(taskId){
+//       console.log(`deleted: `, taskId);
+// }
+
+
 
 // Day Mode - Night Mode 
 const changeTheme = function(){
@@ -94,10 +137,10 @@ const changeTheme = function(){
             hoverCaps[i].classList.toggle('submit-dark');
             hoverCaps[i].classList.toggle('submit-light');
       }
-
+      
       if(theme===false){
             dayNight.src="../images/icon-sun.svg";
-            inputValue.style.backgroundColor = 'hsl(237, 14%, 26%)';
+            inputValue.style.backgroundColor = 'hsl(235, 24%, 19%)';
             inputValue.style.color ='white';
             buttonLabel.classList.toggle('submit-dark');
             buttonLabel.classList.toggle('submit-light');
@@ -124,12 +167,12 @@ const changeTheme = function(){
 
 //Change Theme
 dayNight.addEventListener('click', changeTheme);
+
 //Create Task
 submitButton.addEventListener('click', ()=>{
-      // executing twice? see console
       if(inputValue.value==0){
             console.log(`You don't want an empty task...`);
       }else{
-            addTask()
+            createTask()
       }
 });
