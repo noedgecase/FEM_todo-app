@@ -26,6 +26,7 @@ body {
 }
 
 main {
+  box-sizing: border-box;
   position: relative;
   height: 400px;
   width: 600px;
@@ -66,11 +67,14 @@ main {
   height: 65px;
   text-align: center;
   font-size: 20px;
-  justify-content: center;
   box-shadow: 0px 30px 25px rgba(0, 0, 0, 0.1);
 }
 .task-tab:hover .cross-svg {
   opacity: 1;
+}
+
+.task-content {
+  margin-left: 4rem;
 }
 
 .margin-bottom {
@@ -285,6 +289,28 @@ input[type=text] {
   background: linear-gradient(-90deg, #57ddff 0%, #c058f3 100%);
 }
 
+.check-button-checked {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #777a92;
+  cursor: pointer;
+  outline: none;
+  background: transparent;
+  border: none;
+  background: linear-gradient(-90deg, #57ddff 0%, #c058f3 100%);
+}
+.check-button-checked::before {
+  content: url("../images/icon-check.svg");
+}
+
 .checked {
   z-index: 0;
   margin: 1rem;
@@ -330,6 +356,63 @@ input[type=text] {
   bottom: 0;
   left: 0;
   background: #25273c;
+}
+
+.control-panel-dark {
+  color: white;
+}
+
+.control-panel-light {
+  color: black;
+}
+
+.line-through {
+  text-decoration: line-through;
+  opacity: 0.3;
+}
+
+#control-panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 55px;
+  font-size: 14px;
+  box-shadow: 0px 30px 25px rgba(0, 0, 0, 0.1);
+}
+#control-panel p {
+  cursor: pointer;
+  text-align: center;
+  flex: 1;
+  margin: 0 1rem;
+}
+#control-panel p:hover {
+  opacity: 0.5;
+}
+#control-panel p:active {
+  opacity: 0.2;
+}
+#control-panel ul {
+  display: flex;
+  justify-content: center;
+  flex: 2;
+  list-style: none;
+  display: flex;
+}
+#control-panel ul li {
+  cursor: pointer;
+  margin: 0 1rem;
+}
+#control-panel ul li:hover {
+  opacity: 0.6;
+}
+#control-panel ul li:active {
+  opacity: 0.3;
+}
+
+.hidden {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

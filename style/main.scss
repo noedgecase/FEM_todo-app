@@ -29,6 +29,7 @@ body{
 }
 
 main{
+      box-sizing:border-box;
       position:relative;
       height:400px;
       width:600px;
@@ -64,6 +65,7 @@ main{
 }
 
 .task-tab{
+      // padding:0 1rem;
       display:flex;
       align-items:center;
       position:relative;
@@ -71,7 +73,7 @@ main{
       height:65px;
       text-align:center;
       font-size:20px;
-      justify-content:center;
+      // justify-content:center;
       box-shadow:0px 30px 25px rgba(0, 0, 0, .1);
       &:hover{
             .cross-svg{
@@ -79,6 +81,10 @@ main{
             }
       }
 };
+
+.task-content{
+      margin-left:4rem;
+}
 
 .margin-bottom{
       margin-bottom:.5rem;
@@ -297,6 +303,28 @@ input[type=text]{
       }
 }
 
+.check-button-checked{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      z-index:1;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      border-width:1px;
+      border-style: solid;
+      border-color:$darkGrayBlue;
+      cursor:pointer;
+      outline:none;
+      background:transparent;
+      border: none;
+      background: $background;
+      &::before{
+            content:url('../images/icon-check.svg');
+      }
+}
+
 .checked{
       z-index:0;
       margin:1rem;
@@ -342,4 +370,62 @@ input[type=text]{
             left:0;
             background:$veryDarkDesaturatedBlue;
       }
+}
+
+.control-panel-dark{
+      color:white;
+}
+
+.control-panel-light{
+      color:black;
+}
+
+.line-through{
+      text-decoration:line-through;
+      opacity:.3;
+}
+
+#control-panel{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      width:100%;
+      height:55px;
+      font-size:14px;
+      box-shadow:0px 30px 25px rgba(0, 0, 0, .1);
+      p{
+            cursor:pointer;
+            text-align:center;
+            flex:1;
+            margin:0 1rem;
+            &:hover{
+                  opacity:.5;
+            }
+            &:active{
+                  opacity:.2;
+            }
+      }
+      ul{
+            display:flex;
+            justify-content:center;
+            flex:2;
+            list-style:none;
+            display:flex;
+            
+            li{
+                  cursor:pointer;
+                  margin:0 1rem;
+                  &:hover{
+                        opacity:.6;
+                  }
+                  &:active{
+                        opacity:.3;
+                  }
+            }
+      }
+}
+
+.hidden{
+      display:none;
 }

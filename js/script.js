@@ -16,8 +16,9 @@ const plusSign2 = document.querySelector('.plus-sign-2');
 const hoverCaps = document.getElementsByClassName('on-hover-submit');
 const inputHoverCap = document.getElementById('input-hover-cap');
 const crosses = document.getElementsByClassName('cross-svg');
+const ctrlPanel = document.getElementById('control-panel');
 
-let toComplete = [];
+let active = [];
 let completed = [];
 let allTasks = [];
 
@@ -46,6 +47,7 @@ const createTask = function () {
       createTaskDiv.classList.add('task-tab');
       createTaskDiv.classList.add('cursor-hover');
       createTaskP;
+      createTaskP.classList.add('task-content');
       createTaskDiv.appendChild(createTaskP);
       taskContent;
       createTaskDiv.lastChild.appendChild(taskContent);
@@ -79,32 +81,51 @@ const createTask = function () {
       const taskId = uuidv4();
       createTaskDiv.id = taskId;
       allTasks.unshift(taskId);
-      toComplete.unshift(taskId);
+      active.unshift(taskId);
       taskList.prepend(createTaskDiv);
-      console.log(toComplete);
+      console.log(active);
       inputValue.value="";
-      console.log(toComplete.length, allTasks.length);
+      console.log(`Active: ${active.length}, allTasks: ${allTasks.length}, Completed: ${completed.length}`);
       restyleCardList();
       
       addImg.addEventListener('click',() => {
+            if(active.includes(createTaskDiv.id)){
+                  active.splice(active.indexOf(createTaskDiv.id), 1);
+                  allTasks.splice(allTasks.indexOf(createTaskDiv.id), 1);
+            }else if(completed.includes(createTaskDiv.id)){
+                  completed.splice(completed.indexOf(createTaskDiv.id), 1);
+                  allTasks.splice(allTasks.indexOf(createTaskDiv.id), 1);
+            }
+            console.log(`deleted: ${createTaskDiv.id}`);
+            console.log(`Active: ${active.length}, allTasks: ${allTasks.length}, Completed: ${completed.length}`);
             taskList.removeChild(createTaskDiv);
-            const index = toComplete.indexOf(createTaskDiv.id);
-                  toComplete.splice(index, 1);
-                  allTasks.splice(index, 1);
-                  console.log(`deleted: ${createTaskDiv.id},`, `toComplete now has ${toComplete.length} items`, toComplete);
-                  console.log(toComplete.length, allTasks.length);
-                  restyleCardList();
-            });
+            restyleCardList();
+      });
+
+      createCheckBtn.addEventListener('click', ()=>{
+      if(active.includes(createTaskDiv.id)){
+            active.splice(active.indexOf(createTaskDiv.id), 1);
+            completed.unshift(createTaskDiv.id)
+            console.log(`added to 'COMPLETED': ${createTaskDiv.id}`);
+      }else{
+            completed.splice(completed.indexOf(createTaskDiv.id), 1);
+            active.unshift(createTaskDiv.id)
+            console.log(`added to 'ACTIVE' ${createTaskDiv.id}`);
+            }
+            createTaskP.classList.toggle('line-through');
+            createHoverCap.classList.toggle('hidden');
+            createCheckBtn.classList.toggle('check-button');
+            createCheckBtn.classList.toggle('check-button-checked');
+            console.log(`Active: ${active.length}, allTasks: ${allTasks.length}, Completed: ${completed.length}`);
+      });
 
 };
 
 const restyleCardList = function() {
       const cards = document.getElementsByClassName('task-tab');
-      // console.log("CARDURI :", cards);
       if(cards[1]) {
             cards[1].classList.add('first-task');
             cards[1].classList.remove('border-radius-none');
-            
       }
       if(cards[2]){
             cards[2].classList.add('border-radius-none')
@@ -115,8 +136,8 @@ const restyleCardList = function() {
             cards[cards.length - 1].classList.remove('border-radius-none')
             cards[cards.length - 1].classList.add('last-task')
       }
-      console.log(`cards length is ${cards.length}`);
-      console.log('succesfully restyled');
+      // console.log(`cards length is ${cards.length}`);
+      // console.log('succesfully restyled');
 }
 
 // Day Mode - Night Mode 
@@ -125,9 +146,16 @@ const changeTheme = function(){
       
       body.classList.toggle('night');
       body.classList.toggle('day');
-      // o trebuit sa stochez efectul de la butonul de input a formului, nu l-am putut selecta cu 'hoverCaps' ca si pe cele de la taskurile adaugate, nu inteleg de ce, au aceeasi clasa. Am adaugat un ID (inputHoverCap) la butonul de la form si schimba individual mai jos ca workaround.
+      /*o trebuit sa stochez efectul de la butonul de input a formului,
+      nu l-am putut selecta cu 'hoverCaps' ca si pe cele de la taskurile adaugate,
+      nu inteleg de ce, au aceeasi clasa. Am adaugat un ID (inputHoverCap) la 
+      butonul de la form si se schimba individual mai jos ca workaround.*/
       inputHoverCap.classList.toggle('submit-light');
       inputHoverCap.classList.toggle('submit-dark');
+      // ctrlPanel.classList.toggle('task-dark');
+      // ctrlPanel.classList.toggle('task-light');
+      // ctrlPanel.classList.toggle('control-panel-light');
+      // ctrlPanel.classList.toggle('control-panel-dark');
 
       // console.log('TASKURI:', taskTabs);
       for(let i=0; i<taskTabs.length; i++){
