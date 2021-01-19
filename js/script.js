@@ -80,45 +80,44 @@ const createTask = function () {
       createTaskDiv.id = taskId;
       allTasks.unshift(taskId);
       toComplete.unshift(taskId);
-      console.log(toComplete.length);
       taskList.prepend(createTaskDiv);
       console.log(toComplete);
       inputValue.value="";
+      console.log(toComplete.length, allTasks.length);
       restyleCardList();
       
       addImg.addEventListener('click',() => {
             taskList.removeChild(createTaskDiv);
-            toComplete.splice(toComplete.indexOf('taskId'));
-            console.log(`deleted: `, taskId, `toComplete now has ${toComplete.length} items`, toComplete);
-      });
-      // console.log(toComplete.length, allTasks.length);
+            const index = toComplete.indexOf(createTaskDiv.id);
+                  toComplete.splice(index, 1);
+                  allTasks.splice(index, 1);
+                  console.log(`deleted: ${createTaskDiv.id},`, `toComplete now has ${toComplete.length} items`, toComplete);
+                  console.log(toComplete.length, allTasks.length);
+                  restyleCardList();
+            });
+
 };
 
 const restyleCardList = function() {
       const cards = document.getElementsByClassName('task-tab');
       // console.log("CARDURI :", cards);
-      //TODO: Edit first  --- check if exists
       if(cards[1]) {
-            //border top
             cards[1].classList.add('first-task');
+            cards[1].classList.remove('border-radius-none');
+            
       }
-      //TODO: Edit second --- check if exists
       if(cards[2]){
-            //border none
             cards[2].classList.add('border-radius-none')
+            cards[2].classList.remove('first-task');
+            
       }
       if(cards[cards.length - 1]) {
-            // obrder bottom
+            cards[cards.length - 1].classList.remove('border-radius-none')
             cards[cards.length - 1].classList.add('last-task')
       }
+      console.log(`cards length is ${cards.length}`);
+      console.log('succesfully restyled');
 }
-
-// delete a task
-// const deleteTask = function(taskId){
-//       console.log(`deleted: `, taskId);
-// }
-
-
 
 // Day Mode - Night Mode 
 const changeTheme = function(){
@@ -134,6 +133,8 @@ const changeTheme = function(){
       for(let i=0; i<taskTabs.length; i++){
             taskTabs[i].classList.toggle('task-light');
             taskTabs[i].classList.toggle('task-dark');
+            taskTabs[i].classList.toggle('bottom-border-dark');
+            taskTabs[i].classList.toggle('bottom-border-light');
             hoverCaps[i].classList.toggle('submit-dark');
             hoverCaps[i].classList.toggle('submit-light');
       }
