@@ -386,6 +386,8 @@ input[type=text]{
 }
 
 #control-panel{
+      // visibility: hidden;
+      margin-top:1rem;
       position:relative;
       display:flex;
       align-items:center;
@@ -394,11 +396,8 @@ input[type=text]{
       height:55px;
       font-size:14px;
       box-shadow:0px 30px 25px rgba(0, 0, 0, .1);
-      p{
+      #clear-completed-btn{
             cursor:pointer;
-            text-align:center;
-            flex:1;
-            margin:0 1rem;
             &:hover{
                   opacity:.5;
             }
@@ -406,6 +405,13 @@ input[type=text]{
                   opacity:.2;
             }
       }
+
+      p{
+            text-align:center;
+            flex:1;
+            margin:0 1rem;
+      }
+
       ul{
             display:flex;
             justify-content:center;

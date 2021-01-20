@@ -372,6 +372,7 @@ input[type=text] {
 }
 
 #control-panel {
+  margin-top: 1rem;
   position: relative;
   display: flex;
   align-items: center;
@@ -381,17 +382,19 @@ input[type=text] {
   font-size: 14px;
   box-shadow: 0px 30px 25px rgba(0, 0, 0, 0.1);
 }
-#control-panel p {
+#control-panel #clear-completed-btn {
   cursor: pointer;
+}
+#control-panel #clear-completed-btn:hover {
+  opacity: 0.5;
+}
+#control-panel #clear-completed-btn:active {
+  opacity: 0.2;
+}
+#control-panel p {
   text-align: center;
   flex: 1;
   margin: 0 1rem;
-}
-#control-panel p:hover {
-  opacity: 0.5;
-}
-#control-panel p:active {
-  opacity: 0.2;
 }
 #control-panel ul {
   display: flex;
