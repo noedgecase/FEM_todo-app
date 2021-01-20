@@ -7,6 +7,10 @@ let active = [];
 let completed = [];
 let allTasks = [];
 
+let allState=true;
+let completedState=false;
+let activeState=false;
+
 // STORING
 const body = document.querySelector('body');
 const dayNight = document.getElementById('sun-icon');
@@ -82,6 +86,14 @@ const createTask = function () {
             createTaskDiv.classList.add('bottom-border-light');
       }
       
+      if(completedState===true){
+            createTaskDiv.classList.add('hidden');
+      }
+
+
+
+      // console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
+
       // Logic /////////
       const taskId = uuidv4();
       createTaskDiv.id = taskId;
@@ -93,6 +105,8 @@ const createTask = function () {
       console.log(`Active: ${active.length}, allTasks: ${allTasks.length}, Completed: ${completed.length}`);
       restyleCardList();
       
+
+      // delete task from it's array on X click///////////
       addImg.addEventListener('click',() => {
             if(active.includes(createTaskDiv.id)){
                   active.splice(active.indexOf(createTaskDiv.id), 1);
@@ -106,17 +120,29 @@ const createTask = function () {
             taskList.removeChild(createTaskDiv);
             restyleCardList();
       });
+      /////////////
 
       createCheckBtn.addEventListener('click', ()=>{
-      if(active.includes(createTaskDiv.id)){
-            active.splice(active.indexOf(createTaskDiv.id), 1);
-            completed.unshift(createTaskDiv.id)
-            console.log(`COMPLETED: ${createTaskDiv.id}`);
-      }else{
-            completed.splice(completed.indexOf(createTaskDiv.id), 1);
-            active.unshift(createTaskDiv.id)
-            console.log(`ACTIVE: ${createTaskDiv.id}`);
-      }
+                  
+            if(active.includes(createTaskDiv.id)){
+                  if(activeState===true){
+                        createTaskDiv.classList.add('hidden');
+                  }
+                  active.splice(active.indexOf(createTaskDiv.id), 1);
+                  completed.unshift(createTaskDiv.id)
+                  console.log(`COMPLETED: ${createTaskDiv.id}`);
+
+            }else{
+                  if(completedState===true){
+                        createTaskDiv.classList.add('hidden');
+                  }
+                  completed.splice(completed.indexOf(createTaskDiv.id), 1);
+                  active.unshift(createTaskDiv.id)
+                  console.log(`ACTIVE: ${createTaskDiv.id}`);
+
+            }
+            
+            restyleCardList();
             createTaskP.classList.toggle('line-through');
             createHoverCap.classList.toggle('hidden');
             createCheckBtn.classList.toggle('check-button');
@@ -145,21 +171,19 @@ const createTask = function () {
 
 const restyleCardList = function() {
       const cards = document.getElementsByClassName('task-tab');
-      if(cards[1]) {
+      if(cards[1]){
             cards[1].classList.add('first-task');
             cards[1].classList.remove('border-radius-none');
       }
       if(cards[2]){
             cards[2].classList.add('border-radius-none')
             cards[2].classList.remove('first-task');
-            // ctrlPanel.style.visibility = "visible";
       }
-      if(cards[cards.length - 1]) {
-            cards[cards.length - 1].classList.remove('border-radius-none')
-            cards[cards.length - 1].classList.add('last-task')
+      if(cards[cards.length-1]) {
+            cards[cards.length-1].classList.remove('border-radius-none')
       }
-      // console.log(`cards length is ${cards.length}`);
-      // console.log('succesfully restyled');
+      
+      console.log('succesfully restyled');
 }
 
 // Day Mode - Night Mode 
@@ -218,6 +242,15 @@ const changeTheme = function(){
 // CONTROL PANEL ////////////////
 // show ACTIVE
 activeBtn.addEventListener('click', ()=>{
+      activeState=true;
+      completedState=false;
+      allState=false;
+      activeBtn.classList.add('active-state');
+      allBtn.classList.remove('active-state');
+      completedBtn.classList.remove('active-state');
+
+      // console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
+
       for(let i=0; i<completed.length; i++){
             document.getElementById(completed[i]).classList.add('hidden');
       }
@@ -228,7 +261,16 @@ activeBtn.addEventListener('click', ()=>{
 
 // show COMPLETED
 completedBtn.addEventListener('click', ()=>{
-      if(0<completed.length){
+      activeState=false;
+      completedState=true;
+      allState=false;
+      activeBtn.classList.remove('active-state');
+      allBtn.classList.remove('active-state');
+      completedBtn.classList.add('active-state');
+
+      // console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
+
+      if(0<completed.length || completed.length===0){
             for(let i=0; i<active.length; i++){
                   document.getElementById(active[i]).classList.add('hidden');
             }
@@ -240,6 +282,15 @@ completedBtn.addEventListener('click', ()=>{
 
 // show ALL
 allBtn.addEventListener('click', ()=>{
+      activeState=false;
+      completedState=false;
+      allState=true;
+      activeBtn.classList.remove('active-state');
+      allBtn.classList.add('active-state');
+      completedBtn.classList.remove('active-state');
+
+      // console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
+
       for(let i=0; i<active.length; i++){
             document.getElementById(active[i]).classList.remove('hidden');
       }
@@ -264,4 +315,46 @@ submitButton.addEventListener('click', ()=>{
 // ITEMS LEFT COUNTER UPDATE
 document.body.addEventListener('click', ()=>{
       itemsLeft.innerHTML = `${active.length} items left`;
+
+      if(allState===true && allTasks.length>0){
+            ctrlPanel.classList.remove('first-task');
+            ctrlPanel.classList.add('border-radius-none');
+      }else if(allState===true && allTasks.length===0){
+            ctrlPanel.classList.add('first-task');
+            ctrlPanel.classList.remove('border-radius-none');
+      }
+      
+      if(activeState===true && active.length>0){
+            ctrlPanel.classList.remove('first-task');
+            ctrlPanel.classList.add('border-radius-none');
+      }else if(activeState===true && active.length===0){
+            ctrlPanel.classList.add('first-task');
+            ctrlPanel.classList.remove('border-radius-none');
+      }
+      
+      if(completedState===true && completed.length>0){
+            ctrlPanel.classList.remove('first-task');
+            ctrlPanel.classList.add('border-radius-none');
+      }else if(completedState===true && completed.length===0){
+            ctrlPanel.classList.add('first-task');
+            ctrlPanel.classList.remove('border-radius-none');
+      }
+
+      // update cards styling
+
+      if(activeState===true && active.length>0){
+            for(let i=0; i<active.length; i++){
+                  taskTabs[1].classList.add('first-task');
+            }
+      }
+      if(completedState===true && completed.length>0){
+            for(let i=0; i<active.length; i++){
+                  taskTabs[1].classList.add('first-task');
+            }
+      }
+      if(allState===true && allTasks.length>0){
+            for(let i=0; i<active.length; i++){
+                  taskTabs[1].classList.add('first-task');
+            }
+      }
 })

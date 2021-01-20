@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;700&display=swap");
 * {
   font-family: "Josefin Sans", sans-serif;
   margin: 0;
@@ -29,7 +29,8 @@ main {
   box-sizing: border-box;
   position: relative;
   height: 400px;
-  width: 600px;
+  width: 30%;
+  min-width: 500px;
   top: 70px;
   left: 50%;
   transform: translate(-50%, 0);
@@ -372,7 +373,6 @@ input[type=text] {
 }
 
 #control-panel {
-  margin-top: 1rem;
   position: relative;
   display: flex;
   align-items: center;
@@ -384,17 +384,21 @@ input[type=text] {
 }
 #control-panel #clear-completed-btn {
   cursor: pointer;
+  opacity: 0.6;
 }
 #control-panel #clear-completed-btn:hover {
-  opacity: 0.5;
+  opacity: 1;
 }
 #control-panel #clear-completed-btn:active {
-  opacity: 0.2;
+  opacity: 1;
+  color: #3a7bfd;
+  transition: 0.1s;
 }
 #control-panel p {
   text-align: center;
   flex: 1;
   margin: 0 1rem;
+  opacity: 0.6;
 }
 #control-panel ul {
   display: flex;
@@ -406,16 +410,38 @@ input[type=text] {
 #control-panel ul li {
   cursor: pointer;
   margin: 0 1rem;
-}
-#control-panel ul li:hover {
   opacity: 0.6;
 }
+#control-panel ul li:hover {
+  opacity: 1;
+}
 #control-panel ul li:active {
-  opacity: 0.3;
+  color: #3a7bfd;
+  transition: 0.3s;
 }
 
 .hidden {
   display: none;
+}
+
+.active-state {
+  color: #3a7bfd;
+  opacity: 1 !important;
+}
+
+@media (max-width: 554px) {
+  main {
+    width: 90%;
+    min-width: 200px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  input[type=text] {
+    font-size: 14px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
