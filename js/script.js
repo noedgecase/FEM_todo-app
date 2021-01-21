@@ -11,6 +11,16 @@ let allState=true;
 let completedState=false;
 let activeState=false;
 
+if (allState===true){
+      document.getElementById('all').classList.add('active-state');
+}
+if (completedState===true){
+      document.getElementById('completed').classList.add('active-state');
+}
+if (activeState===true){
+      document.getElementById('active').classList.add('active-state');
+}
+
 // STORING
 const body = document.querySelector('body');
 const dayNight = document.getElementById('sun-icon');
@@ -29,6 +39,7 @@ const allBtn = document.getElementById('all');
 const activeBtn = document.getElementById('active');
 const completedBtn = document.getElementById('completed');
 const clearCompleted = document.getElementById('clear-completed-btn');
+const newFiltersTab = document.getElementById('filters-new-pos')
 let itemsLeft = document.getElementById('items-left-btn');
 
 // FUNCTIONS ///////////////////////
@@ -72,7 +83,7 @@ const createTask = function () {
       createTaskDiv.appendChild(addImg);
       addImg.src='../images/icon-cross.svg';
       addImg.classList.add('cross-svg');
-      
+
       // Theme styling /////////
       if(theme===false){
             createTaskDiv.classList.add('task-dark');
@@ -89,7 +100,6 @@ const createTask = function () {
       if(completedState===true){
             createTaskDiv.classList.add('hidden');
       }
-
 
 
       // console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
@@ -120,26 +130,64 @@ const createTask = function () {
             taskList.removeChild(createTaskDiv);
             restyleCardList();
       });
-      /////////////
+      ///////////////////////////////////////////
 
       createCheckBtn.addEventListener('click', ()=>{
                   
-            if(active.includes(createTaskDiv.id)){
-                  if(activeState===true){
-                        createTaskDiv.classList.add('hidden');
-                  }
-                  active.splice(active.indexOf(createTaskDiv.id), 1);
-                  completed.unshift(createTaskDiv.id)
-                  console.log(`COMPLETED: ${createTaskDiv.id}`);
+                  if(active.includes(createTaskDiv.id)){
+                        if(activeState===true){
+                              createTaskDiv.classList.add('hidden');
+                        }
+                        active.splice(active.indexOf(createTaskDiv.id), 1);
+                        completed.unshift(createTaskDiv.id)
+                        console.log(`COMPLETED: ${createTaskDiv.id}`);
 
-            }else{
-                  if(completedState===true){
-                        createTaskDiv.classList.add('hidden');
-                  }
-                  completed.splice(completed.indexOf(createTaskDiv.id), 1);
-                  active.unshift(createTaskDiv.id)
-                  console.log(`ACTIVE: ${createTaskDiv.id}`);
+                  }else{
+                        if(completedState===true){
+                              createTaskDiv.classList.add('hidden');
+                        }
+                        completed.splice(completed.indexOf(createTaskDiv.id), 1);
+                        active.unshift(createTaskDiv.id)
+                        console.log(`ACTIVE: ${createTaskDiv.id}`);
 
+                  }
+
+             //////// update cards styling
+            if(active[0] && activeState===true){
+                  document.getElementById(active[0]).classList.add('first-task');
+                  document.getElementById(active[0]).classList.remove('border-radius-none');
+                  if(active[1] && activeState===true){
+                        document.getElementById(active[1]).classList.add('border-radius-none');
+                        document.getElementById(active[1]).classList.remove('first-task');
+                  }
+            }
+            
+            if(completed[0]){
+                  document.getElementById(completed[0]).classList.add('first-task');
+                  document.getElementById(completed[0]).classList.remove('border-radius-none');
+                  if(completed[1]){
+                        document.getElementById(completed[1]).classList.add('border-radius-none');
+                        document.getElementById(completed[1]).classList.remove('first-task');
+                  }
+            }
+
+            if(allTasks[0] && allState===true){
+                  document.getElementById(allTasks[0]).classList.add('first-task');
+                  document.getElementById(allTasks[0]).classList.remove('border-radius-none');
+                  if(allTasks[1] && allState===true){
+                        document.getElementById(allTasks[1]).classList.add('border-radius-none');
+                        document.getElementById(allTasks[1]).classList.remove('first-task');
+                  }
+            }
+      
+
+            if(completed.length>0 && activeState===true || allState===true){
+                  document.getElementById(completed[0]).classList.add('first-task');
+                  document.getElementById(completed[0]).classList.remove('border-radius-none');
+                  if(completed[1]){
+                        document.getElementById(completed[1]).classList.add('border-radius-none');
+                        document.getElementById(completed[1]).classList.remove('first-task');
+                  }
             }
             
             restyleCardList();
@@ -183,11 +231,13 @@ const restyleCardList = function() {
             cards[cards.length-1].classList.remove('border-radius-none')
       }
       
-      console.log('succesfully restyled');
+      // console.log('succesfully restyled');
 }
 
 // Day Mode - Night Mode 
 const changeTheme = function(){
+      console.clear();
+      
       theme = !theme;
       
       body.classList.toggle('night');
@@ -219,19 +269,19 @@ const changeTheme = function(){
             inputValue.style.color ='white';
             buttonLabel.classList.toggle('submit-dark');
             buttonLabel.classList.toggle('submit-light');
-            plusSign1.classList.toggle('submit-light');
-            plusSign1.classList.toggle('submit-dark');
-            plusSign2.classList.toggle('submit-light');
-            plusSign2.classList.toggle('submit-dark');
+            // plusSign1.classList.toggle('submit-light');
+            // plusSign1.classList.toggle('submit-dark');
+            // plusSign2.classList.toggle('submit-light');
+            // plusSign2.classList.toggle('submit-dark');
             console.log(`Lights Off`);
       }else{
             dayNight.src="../images/icon-moon.svg";
             inputValue.style.backgroundColor = '#e0dada';
             inputValue.style.color = 'black';
-            plusSign1.classList.toggle('submit-light');
-            plusSign1.classList.toggle('submit-dark');
-            plusSign2.classList.toggle('submit-light');
-            plusSign2.classList.toggle('submit-dark');
+            // plusSign1.classList.toggle('submit-light');
+            // plusSign1.classList.toggle('submit-dark');
+            // plusSign2.classList.toggle('submit-light');
+            // plusSign2.classList.toggle('submit-dark');
             buttonLabel.classList.toggle('submit-dark');
             buttonLabel.classList.toggle('submit-light');
             console.log(`Lights On`);
@@ -316,6 +366,8 @@ submitButton.addEventListener('click', ()=>{
 document.body.addEventListener('click', ()=>{
       itemsLeft.innerHTML = `${active.length} items left`;
 
+      restyleCardList();
+
       if(allState===true && allTasks.length>0){
             ctrlPanel.classList.remove('first-task');
             ctrlPanel.classList.add('border-radius-none');
@@ -340,21 +392,5 @@ document.body.addEventListener('click', ()=>{
             ctrlPanel.classList.remove('border-radius-none');
       }
 
-      // update cards styling
-
-      if(activeState===true && active.length>0){
-            for(let i=0; i<active.length; i++){
-                  taskTabs[1].classList.add('first-task');
-            }
-      }
-      if(completedState===true && completed.length>0){
-            for(let i=0; i<active.length; i++){
-                  taskTabs[1].classList.add('first-task');
-            }
-      }
-      if(allState===true && allTasks.length>0){
-            for(let i=0; i<active.length; i++){
-                  taskTabs[1].classList.add('first-task');
-            }
-      }
+  
 })
