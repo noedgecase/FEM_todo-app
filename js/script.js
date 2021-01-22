@@ -180,8 +180,10 @@ const createTask = function () {
             }
 
             if(completedState===true && !completed[1]){
-                  document.getElementById(completed[0]).classList.remove('border-radius-none');
-                  document.getElementById(completed[0]).classList.add('first-task');
+                  if(completed[0]){
+                        document.getElementById(completed[0]).classList.remove('border-radius-none');
+                        document.getElementById(completed[0]).classList.add('first-task');
+                  }
             }
       
             createTaskP.classList.toggle('line-through');
@@ -291,7 +293,7 @@ activeBtn.addEventListener('click', ()=>{
                   document.getElementById(active[1]).classList.remove('first-task');
             }
       }
-      console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
+      // console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
 })
 
 // show COMPLETED
@@ -329,7 +331,7 @@ completedBtn.addEventListener('click', ()=>{
 
       restyleCardList();
 
-      console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
+      // console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
 })
 
 // show ALL
@@ -374,7 +376,7 @@ allBtn.addEventListener('click', ()=>{
             }
       }
       
-      console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
+      // console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
 })
 
 
@@ -393,7 +395,7 @@ const restyleCardList = function() {
             cards[0].classList.add('first-task')
       }
       
-      console.log('succesfully restyled');
+      // console.log('succesfully restyled');
 }
 
 
