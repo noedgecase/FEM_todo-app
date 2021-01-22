@@ -113,8 +113,6 @@ const createTask = function () {
       // console.log(active);
       inputValue.value="";
       console.log(`Active: ${active.length}, allTasks: ${allTasks.length}, Completed: ${completed.length}`);
-      restyleCardList();
-      
 
       // delete task from it's array on X click///////////
       addImg.addEventListener('click',() => {
@@ -132,6 +130,26 @@ const createTask = function () {
       });
       ///////////////////////////////////////////
 
+      // GOLD CODE //////////////////////////////////////////////
+      if(active[0] && activeState===true){
+            document.getElementById(active[0]).classList.add('first-task');
+            document.getElementById(active[0]).classList.remove('border-radius-none');
+            if(active[1] && activeState===true){
+                  document.getElementById(active[1]).classList.add('border-radius-none');
+                  document.getElementById(active[1]).classList.remove('first-task');
+            }
+      }
+
+      if(allTasks[0] && allState===true){
+            document.getElementById(allTasks[0]).classList.add('first-task');
+            document.getElementById(allTasks[0]).classList.remove('border-radius-none');
+            if(allTasks[1] && allState===true){
+                  document.getElementById(allTasks[1]).classList.add('border-radius-none');
+                  document.getElementById(allTasks[1]).classList.remove('first-task');
+            }
+      }
+      // GOLD CODE /////////////////////////////////////////////
+
       createCheckBtn.addEventListener('click', ()=>{
                   
                   if(active.includes(createTaskDiv.id)){
@@ -141,7 +159,6 @@ const createTask = function () {
                         active.splice(active.indexOf(createTaskDiv.id), 1);
                         completed.unshift(createTaskDiv.id)
                         console.log(`COMPLETED: ${createTaskDiv.id}`);
-
                   }else{
                         if(completedState===true){
                               createTaskDiv.classList.add('hidden');
@@ -156,41 +173,17 @@ const createTask = function () {
             if(active[0] && activeState===true){
                   document.getElementById(active[0]).classList.add('first-task');
                   document.getElementById(active[0]).classList.remove('border-radius-none');
-                  if(active[1] && activeState===true){
+                  if(active[1]){
                         document.getElementById(active[1]).classList.add('border-radius-none');
                         document.getElementById(active[1]).classList.remove('first-task');
                   }
             }
-            
-            if(completed[0]){
-                  document.getElementById(completed[0]).classList.add('first-task');
-                  document.getElementById(completed[0]).classList.remove('border-radius-none');
-                  if(completed[1]){
-                        document.getElementById(completed[1]).classList.add('border-radius-none');
-                        document.getElementById(completed[1]).classList.remove('first-task');
-                  }
-            }
 
-            if(allTasks[0] && allState===true){
-                  document.getElementById(allTasks[0]).classList.add('first-task');
-                  document.getElementById(allTasks[0]).classList.remove('border-radius-none');
-                  if(allTasks[1] && allState===true){
-                        document.getElementById(allTasks[1]).classList.add('border-radius-none');
-                        document.getElementById(allTasks[1]).classList.remove('first-task');
-                  }
+            if(completedState===true && !completed[1]){
+                  document.getElementById(completed[0]).classList.remove('border-radius-none');
+                  document.getElementById(completed[0]).classList.add('first-task');
             }
       
-
-            if(completed.length>0 && activeState===true || allState===true){
-                  document.getElementById(completed[0]).classList.add('first-task');
-                  document.getElementById(completed[0]).classList.remove('border-radius-none');
-                  if(completed[1]){
-                        document.getElementById(completed[1]).classList.add('border-radius-none');
-                        document.getElementById(completed[1]).classList.remove('first-task');
-                  }
-            }
-            
-            restyleCardList();
             createTaskP.classList.toggle('line-through');
             createHoverCap.classList.toggle('hidden');
             createCheckBtn.classList.toggle('check-button');
@@ -216,23 +209,6 @@ const createTask = function () {
 })
 
 };
-
-const restyleCardList = function() {
-      const cards = document.getElementsByClassName('task-tab');
-      if(cards[1]){
-            cards[1].classList.add('first-task');
-            cards[1].classList.remove('border-radius-none');
-      }
-      if(cards[2]){
-            cards[2].classList.add('border-radius-none')
-            cards[2].classList.remove('first-task');
-      }
-      if(cards[cards.length-1]) {
-            cards[cards.length-1].classList.remove('border-radius-none')
-      }
-      
-      // console.log('succesfully restyled');
-}
 
 // Day Mode - Night Mode 
 const changeTheme = function(){
@@ -295,18 +271,27 @@ activeBtn.addEventListener('click', ()=>{
       activeState=true;
       completedState=false;
       allState=false;
+
       activeBtn.classList.add('active-state');
       allBtn.classList.remove('active-state');
       completedBtn.classList.remove('active-state');
-
-      // console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
-
+      
       for(let i=0; i<completed.length; i++){
             document.getElementById(completed[i]).classList.add('hidden');
       }
       for(let i=0; i<active.length; i++){
             document.getElementById(active[i]).classList.remove('hidden');
       }
+
+      if(active[0] && activeState===true){
+            document.getElementById(active[0]).classList.add('first-task');
+            document.getElementById(active[0]).classList.remove('border-radius-none');
+            if(active[1] && activeState===true){
+                  document.getElementById(active[1]).classList.add('border-radius-none');
+                  document.getElementById(active[1]).classList.remove('first-task');
+            }
+      }
+      console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
 })
 
 // show COMPLETED
@@ -314,13 +299,12 @@ completedBtn.addEventListener('click', ()=>{
       activeState=false;
       completedState=true;
       allState=false;
+
       activeBtn.classList.remove('active-state');
       allBtn.classList.remove('active-state');
       completedBtn.classList.add('active-state');
 
-      // console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
-
-      if(0<completed.length || completed.length===0){
+      if(0<=completed.length){
             for(let i=0; i<active.length; i++){
                   document.getElementById(active[i]).classList.add('hidden');
             }
@@ -328,6 +312,24 @@ completedBtn.addEventListener('click', ()=>{
                   document.getElementById(completed[i]).classList.remove('hidden');
             }
       }
+
+      if(completed[0] && completedState===true){
+            document.getElementById(completed[0]).classList.add('first-task');
+            document.getElementById(completed[0]).classList.remove('border-radius-none');
+            if(completed[1]){
+                  document.getElementById(completed[1]).classList.add('border-radius-none');
+                  document.getElementById(completed[1]).classList.remove('first-task');
+            }
+            if(completed[2]){
+                  for(let i=2; i<completed.length; i++){
+                        document.getElementById(completed[i]).classList.add('border-radius-none');
+                  }
+            }
+      }
+
+      restyleCardList();
+
+      console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
 })
 
 // show ALL
@@ -335,19 +337,66 @@ allBtn.addEventListener('click', ()=>{
       activeState=false;
       completedState=false;
       allState=true;
+
       activeBtn.classList.remove('active-state');
       allBtn.classList.add('active-state');
       completedBtn.classList.remove('active-state');
 
-      // console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
-
+      
       for(let i=0; i<active.length; i++){
             document.getElementById(active[i]).classList.remove('hidden');
       }
       for(let i=0; i<completed.length; i++){
             document.getElementById(completed[i]).classList.remove('hidden');
       }
+
+      if(active[0] && activeState===true){
+            document.getElementById(active[0]).classList.add('first-task');
+            document.getElementById(active[0]).classList.remove('border-radius-none');
+            if(active[1] && activeState===true){
+                  document.getElementById(active[1]).classList.add('border-radius-none');
+                  document.getElementById(active[1]).classList.remove('first-task');
+            }
+      }
+
+      if(allTasks[0] && allState===true){
+            document.getElementById(allTasks[0]).classList.add('first-task');
+            document.getElementById(allTasks[0]).classList.remove('border-radius-none');
+            if(allTasks[1]){
+                  document.getElementById(allTasks[1]).classList.add('border-radius-none');
+                  document.getElementById(allTasks[1]).classList.remove('first-task');
+            }
+            if(allTasks[2]){
+                  for(let i=2; i<allTasks.length; i++){
+                        document.getElementById(allTasks[i]).classList.add('border-radius-none');
+                        document.getElementById(allTasks[i]).classList.remove('first-task');
+                  }
+            }
+      }
+      
+      console.log(`ALL: ${allState}; ACTIVE:${activeState}; COMPLETED:${completedState}`);
 })
+
+
+const restyleCardList = function() {
+      const cards = document.getElementsByClassName('task-tab');
+      if(cards[1]){
+            cards[1].classList.add('first-task');
+            cards[1].classList.remove('border-radius-none');
+      }
+      if(cards[2]){
+            cards[2].classList.add('border-radius-none')
+            cards[2].classList.remove('first-task');
+      }
+      if(cards[0] && !cards[1]){
+            cards[cards.length-1].classList.remove('border-radius-none')
+            cards[0].classList.add('first-task')
+      }
+      
+      console.log('succesfully restyled');
+}
+
+
 
 // EVENTS ////////////////////////////
 //Change Theme
@@ -362,11 +411,14 @@ submitButton.addEventListener('click', ()=>{
       }
 });
 
-// ITEMS LEFT COUNTER UPDATE
+
+
+
+
+
+// UI UPDATE
 document.body.addEventListener('click', ()=>{
       itemsLeft.innerHTML = `${active.length} items left`;
-
-      restyleCardList();
 
       if(allState===true && allTasks.length>0){
             ctrlPanel.classList.remove('first-task');
@@ -391,6 +443,4 @@ document.body.addEventListener('click', ()=>{
             ctrlPanel.classList.add('first-task');
             ctrlPanel.classList.remove('border-radius-none');
       }
-
-  
 })
