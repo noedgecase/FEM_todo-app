@@ -58,7 +58,7 @@ Users should be able to:
 
 ### What I learned
 
-I managed to implement fundamentals such as looping arrays, the switch statement, aswell as get a taste of adding, deleting and styling elements through js.
+I managed to implement fundamentals such as looping arrays, the switch statement, aswell as adding, deleting and styling elements through js.
 
 ### Continued development
 
