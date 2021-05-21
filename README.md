@@ -38,7 +38,7 @@ Users should be able to:
 
 ### Screenshot
 
-![](./Animation.gif)
+![](./preview.gif)
 
 ### Links
 
